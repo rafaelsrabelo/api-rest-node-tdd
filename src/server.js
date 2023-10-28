@@ -1,10 +1,3 @@
-const express = require('express');
-const app = express();
+const app = require('./app');
 
-app.get('/', (req, res) => {
-    res.status(200).send();
-})
-
-app.listen(3001, () => {
-    console.log('backend on fire! 🔥')
-});
+app.listen(3001, () => console.log('backend on fire! 🔥'));
