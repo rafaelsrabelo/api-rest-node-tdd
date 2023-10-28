@@ -10,5 +10,6 @@
         "sourceType": "module"
     },
     "rules": {
+        "arrow-bod-style": "off"
     }
 }
