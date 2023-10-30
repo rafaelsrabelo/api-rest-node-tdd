@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 module.exports = {
 
@@ -43,14 +44,15 @@ module.exports = {
   test: {
     client: 'pg',
     connection: {
-      host: 'localhost',
-      database: 'rumi',
-      user: 'postgres',
-      password: 'example'
+      host: process.env.DATABASE_HOST,
+      port: process.env.DATABASE_PORT,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
     },
     pool: {
-      min: 2,
-      max: 10
+      min: process.env.DATABASE_POOL_MIN,
+      max: process.env.DATABASE_POOL_MAX,
     },
     migrations: {
       directory: 'src/migrations'
