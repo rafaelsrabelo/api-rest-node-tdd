@@ -13,8 +13,13 @@ module.exports = (app) => {
     }
 
     const get = (req, res) => {
-        app.services.accounts.find({id: req.params.id}).then(result => res.status(200).json(result));
+        app.services.accounts.find({ id: req.params.id }).then(result => res.status(200).json(result));
     }
 
-    return { create, getAll, get };
+    const update = (req, res) => {
+        app.services.accounts.update(req.params.id, req.body)
+            .then(result => res.status(200).json(result[0]));
+    }
+
+    return { create, getAll, get, update };
 };
