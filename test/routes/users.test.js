@@ -16,6 +16,7 @@ test('Deve retornar todo usuarios', () => {
 
         });
 });
+
 test('Deve inserir usuários com sucesso', () => {
     return request(app).post('/users')
         .send({ name: "Bernardo", email: email, password: "123456" })
