@@ -35,7 +35,9 @@
             "description": "Lista de usuários obtida com sucesso."
           }
         },
-        "tags": ["Users"]
+        "tags": [
+          "Users"
+        ]
       },
       "post": {
         "summary": "Criar Usuário",
@@ -58,7 +60,9 @@
             "description": "Usuário criado com sucesso."
           }
         },
-        "tags": ["Users"]
+        "tags": [
+          "Users"
+        ]
       }
     },
     "/accounts": {
@@ -70,7 +74,9 @@
             "description": "Lista de contas obtida com sucesso."
           }
         },
-        "tags": ["Accounts"]
+        "tags": [
+          "Accounts"
+        ]
       },
       "post": {
         "summary": "Criar Conta",
@@ -92,7 +98,9 @@
             "description": "Conta criada com sucesso."
           }
         },
-        "tags": ["Accounts"]
+        "tags": [
+          "Accounts"
+        ]
       }
     },
     "/accounts/{id}": {
@@ -115,7 +123,44 @@
             "description": "Conta obtida com sucesso."
           }
         },
-        "tags": ["Accounts"]
+        "tags": [
+          "Accounts"
+        ]
+      },
+      "put": {
+        "summary": "Atualizar Conta",
+        "description": "Atualizar uma conta.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID da conta a ser atualizada."
+          }
+        ],
+        "requestBody": {
+          "description": "Dados da conta a ser atualizada",
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "user_id": 1,
+                "name": "Conta Atualizada"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Conta atualizada com sucesso."
+          }
+        },
+        "tags": [
+          "Accounts"
+        ]
       }
     }
   }
