@@ -1,8 +1,9 @@
+const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const app = express();
 const consign = require('consign');
 const knex = require('knex');
-
+const swaggerDocks = require('./utils/swagger.json');
 const db = knex({
   client: 'pg',
   connection: {
@@ -33,6 +34,8 @@ consign({ 'cwd': 'src' })
   .into(app);
 
 app.use(apiVersion, app._router);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocks));
 
 app.get(`${apiVersion}/`, (req, res) => {
   res.status(200).json({
