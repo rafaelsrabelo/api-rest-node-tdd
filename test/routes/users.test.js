@@ -1,5 +1,5 @@
 const request = require('supertest');
-const TextEncoding = require('text-encoding-utf-8'); // Substitua pelo módulo apropriado
+const TextEncoding = require('text-encoding-utf-8');
 
 global.TextEncoder = TextEncoding.TextEncoder;
 global.TextDecoder = TextEncoding.TextDecoder;
