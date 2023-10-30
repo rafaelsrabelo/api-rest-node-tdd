@@ -24,6 +24,7 @@ app.db = db;
 
 consign({'cwd': 'src'})
     .include('./config/middlewares.js')
+    .then('./services')
     .then('./routes')
     .then('./config/routes.js')
     .into(app);
