@@ -1,65 +1,100 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API para gestão de fazendas",
-        "description": "Essa API tem como objetivo a gestão de fazendas",
-        "termsOfService": "http://localhost:3001/terms",
-        "contact": {
-            "email": "rafaelrabelodev@gmail.com"
-        },
-        "version": "1.0.0"
+      "title": "API para gestão de fazendas",
+      "description": "Essa API tem como objetivo a gestão de fazendas",
+      "termsOfService": "http://localhost:3001/terms",
+      "contact": {
+        "email": "rafaelrabelodev@gmail.com"
+      },
+      "version": "1.0.0"
     },
     "servers": [
-        {
-            "url": "http://localhost:3001/api/v1",
-            "description": "API para teste"
-        }
+      {
+        "url": "http://localhost:3001/api/v1",
+        "description": "API para teste"
+      }
     ],
     "tags": [
-        {
-            "name": "Users",
-            "description": "Operações relacionadas a usuários"
-        }
+      {
+        "name": "Users",
+        "description": "Operações relacionadas a usuários"
+      },
+      {
+        "name": "Accounts",
+        "description": "Operações relacionadas a contas"
+      }
     ],
     "paths": {
-        "/users": {
-            "get": {
-                "summary": "Lista de Usuários",
-                "description": "Obtém a lista de todos os usuários.",
-                "responses": {
-                    "200": {
-                        "description": "Lista de usuários obtida com sucesso."
-                    }
-                },
-                "tags": [
-                    "Users"
-                ]
-            },
-            "post": {
-                "summary": "Criar Usuário",
-                "description": "Cria um novo usuário.",
-                "requestBody": {
-                    "description": "Dados do usuário a ser criado",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "example": {
-                                "name": "Exemplo de Nome",
-                                "email": "exemplo@email.com",
-                                "password": "senha123"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Usuário criado com sucesso."
-                    }
-                },
-                "tags": [
-                    "Users"
-                ]
+      "/users": {
+        "get": {
+          "summary": "Lista de Usuários",
+          "description": "Obtém a lista de todos os usuários.",
+          "responses": {
+            "200": {
+              "description": "Lista de usuários obtida com sucesso."
             }
+          },
+          "tags": ["Users"]
+        },
+        "post": {
+          "summary": "Criar Usuário",
+          "description": "Cria um novo usuário.",
+          "requestBody": {
+            "description": "Dados do usuário a ser criado",
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "name": "Exemplo de Nome",
+                  "email": "exemplo@email.com",
+                  "password": "senha123"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuário criado com sucesso."
+            }
+          },
+          "tags": ["Users"]
         }
+      },
+      "/accounts": {
+        "get": {
+          "summary": "Lista de Contas",
+          "description": "Obtém a lista de todas as contas.",
+          "responses": {
+            "200": {
+              "description": "Lista de contas obtida com sucesso."
+            }
+          },
+          "tags": ["Accounts"]
+        },
+        "post": {
+          "summary": "Criar Conta",
+          "description": "Cria uma nova conta.",
+          "requestBody": {
+            "description": "Dados da conta a ser criada",
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "user_id": 1,
+                  "name": "Exemplo de Conta"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Conta criada com sucesso."
+            }
+          },
+          "tags": ["Accounts"]
+        }
+      }
     }
-}
+  }
+  
