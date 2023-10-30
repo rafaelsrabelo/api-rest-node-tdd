@@ -4,7 +4,7 @@ Bem-vindo ao projeto da API Rumi, uma API seguindo os padrões RESTful projetada
 
 ## Documentação da API
 
-A documentação completa da API pode ser acessada em [http://localhost:3001/api-docs](http://localhost:3001/api-docs).
+A documentação completa da API pode ser acessada em [http://localhost:3001/api-docs](http://localhost:3001/api-docs)
 
 ## Instruções para Executar o PostgreSQL
 
