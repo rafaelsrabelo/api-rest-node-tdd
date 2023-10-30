@@ -1,6 +1,8 @@
 const request = require('supertest');
 const TextEncoding = require('text-encoding-utf-8');
 
+const MAIN_ROUTE = '/users';
+
 global.TextEncoder = TextEncoding.TextEncoder;
 global.TextDecoder = TextEncoding.TextDecoder;
 
@@ -22,8 +24,20 @@ test('Deve inserir usuários com sucesso', () => {
         .send({ name: "Bernardo", email: email, password: "123456" })
         .then((res) => {
             expect(res.status).toBe(201);
-            expect(res.body.name).toBe('Bernardo')
+            expect(res.body.name).toBe('Bernardo');
+            expect(res.body).not.toHaveProperty('password');
         });
+});
+
+test('Deve armazenar senha criptografada', async () => {
+    const res = await request(app).post('/users')
+        .send({name: 'Maria Josefa', email: `${Date.now()}@mail.com`, password: '123456' })
+    expect(res.status).toBe(201);
+
+    const {id} = res.body;
+    const userDb = await app.services.users.findOne({id});
+    expect(userDb.password).not.toBeUndefined();
+    expect(userDb.password).not.toBe('123456'); // nao pode ser a senha que enviamos, pois nao eh criptografada
 });
 
 test('Não deve criar usuário sem nome', () => {
