@@ -1,3 +1,8 @@
+const TextEncoding = require('text-encoding-utf-8'); // Substitua pelo módulo apropriado
+
+global.TextEncoder = TextEncoding.TextEncoder;
+global.TextDecoder = TextEncoding.TextDecoder;
+
 test('Devo conhecer as principais assertivas do jest', () => {
   let number = null;
   expect(number).toBeNull();
