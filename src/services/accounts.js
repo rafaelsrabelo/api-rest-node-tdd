@@ -1,6 +1,7 @@
 module.exports = (app) => {
 
     const create = async (account) => {
+        if(!user.name) return { error: 'O nome é obrigatório'};
         return app.db('accounts').insert(account, '*');
     };
 
@@ -16,5 +17,9 @@ module.exports = (app) => {
         return app.db('accounts').where({ id }).update(account, '*');
     }
 
-    return { create, findAll, find, update };
+    const remove = (id) => {
+        return app.db('accounts').where({ id }).del();
+    };
+
+    return { create, findAll, find, update, remove };
 };

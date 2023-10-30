@@ -161,6 +161,27 @@
         "tags": [
           "Accounts"
         ]
+      },
+      "delete": {
+        "summary": "Deletar Conta",
+        "description": "Deleta uma conta pelo seu ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID da conta a ser atualizada."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conta deletada com sucesso."
+          }
+        },
+        "tags": ["Accounts"]
       }
     }
   }
