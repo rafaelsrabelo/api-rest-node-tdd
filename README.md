@@ -6,6 +6,10 @@ Bem-vindo ao projeto da API Rumi, uma API seguindo os padrões RESTful projetada
 
 A documentação completa da API pode ser acessada em [http://localhost:3001/api-docs](http://localhost:3001/api-docs)
 
+## Instruções para Executar o Projeto
+1. Vá para a raiz do projeto
+2. Execute npm run start
+
 ## Instruções para Executar o PostgreSQL
 
 Para configurar e executar o banco de dados PostgreSQL, siga estas etapas simples:
