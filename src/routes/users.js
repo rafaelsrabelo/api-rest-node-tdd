@@ -14,14 +14,9 @@ module.exports = (app) => {
     };
 
     const create = async (req, res) => {
-        const user = req.body;
-        try {
-            const createdUser = await userService.create(user);
-            res.status(201).json(createdUser[0]);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Erro ao criar usuário' });
-        }
+        const result = await app.services.users.create(req.body);
+        if(result.error) return res.status(400).json(result);
+        res.status(201).json(result[0]);
     };
 
     return { findAll, create };

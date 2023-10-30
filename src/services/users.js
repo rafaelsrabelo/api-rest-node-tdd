@@ -4,6 +4,8 @@ module.exports = (app) => {
     };
 
     const create = (user) => {
+        if(!user.name) return { error: 'O nome é obrigatório'};
+        
         return app.db('users').insert(user, '*');
     };
 
