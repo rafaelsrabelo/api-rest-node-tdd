@@ -1,17 +1,22 @@
 module.exports = (app) => {
     app.route('/auth/signin')
-        .post(app.routes.auth.signin);
+        .post(app.routes.auth.signin)
+        .post(app.routes.users.create);
+
     app.route('/users')
+        .all(app.config.passport.authenticate())
         .get(app.routes.users.findAll)
         .post(app.routes.users.create);
 
-        app.route('/accounts')
-            .post(app.routes.accounts.create)
-            .get(app.routes.accounts.getAll);
+    app.route('/accounts')
+        .all(app.config.passport.authenticate())
+        .post(app.routes.accounts.create)
+        .get(app.routes.accounts.getAll);
 
-        app.route('/accounts/:id')
-            .get(app.routes.accounts.get)
-            .put(app.routes.accounts.update)
-            .delete(app.routes.accounts.remove);
+    app.route('/accounts/:id')
+        .all(app.config.passport.authenticate())
+        .get(app.routes.accounts.get)
+        .put(app.routes.accounts.update)
+        .delete(app.routes.accounts.remove);
 
 };

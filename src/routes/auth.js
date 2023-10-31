@@ -7,7 +7,7 @@ module.exports = (app) => {
         app.services.users.findOne({ email: req.body.email })
             .then((user) => {
                 if (!user) {
-                    return res.status(401).json({ error: 'Usuário não encontrado' });
+                    return res.status(401).json({ error: 'Usuário ou senha inválida' });
                 }
 
                 if (bcrypt.compareSync(req.body.password, user.password)) {
@@ -20,7 +20,7 @@ module.exports = (app) => {
                     const token = jwt.sign(payload, secret);
                     res.status(200).json({ token });
                 } else {
-                    res.status(401).json({ error: 'Senha incorreta' });
+                    res.status(401).json({ error: 'Usuário ou senha inválida' });
                 }
             })
             .catch(err => next(err));

@@ -27,7 +27,8 @@ app.db = db;
 const apiVersion = '/api/v1';
 
 consign({ 'cwd': 'src' })
-  .include('./config/middlewares.js')
+  .include('./config/passport.js')
+  .then('./config/middlewares.js')
   .then('./services')
   .then('./routes')
   .then('./config/routes.js')
@@ -44,6 +45,7 @@ app.get(`${apiVersion}/`, (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+
   const { name, message, stack } = err;
   if (name === 'ValidationError') res.status(400).json({ error: message })
   else res.status(500).json({ name, message, stack });
