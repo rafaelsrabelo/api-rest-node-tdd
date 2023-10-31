@@ -23,9 +23,42 @@
     {
       "name": "Accounts",
       "description": "Operações relacionadas a contas"
+    },
+    {
+      "name": "Authentication",
+      "description": "Operações relacionadas a autenticação"
     }
   ],
   "paths": {
+    "/auth/signin": {
+      "post": {
+        "summary": "Autenticação de Usuário",
+        "description": "Realiza a autenticação de um usuário.",
+        "requestBody":{
+          "description": "Credenciais de autenticação",
+          "required": true,
+          "content": {
+            "application/json":{
+              "example": {
+                "email": "exemplo@email.com",
+                "password": "senha123"
+              }
+            }
+          } 
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticação bem-sucedida. Retorna um token de acesso."
+          },
+          "401": {
+            "description": "Falha na autenticação. Usuário não encontrado ou senha incorreta."
+          }
+        },
+        "tags":[
+          "Authentication"
+        ]
+      }
+    },
     "/users": {
       "get": {
         "summary": "Lista de Usuários",
