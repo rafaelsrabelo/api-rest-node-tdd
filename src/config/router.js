@@ -2,7 +2,7 @@ const express = require('express');
 
 module.exports = (app) => {
     app.use('/auth', app.routes.auth);
-    app.route('/api/v1').get((req, res) => {
+    app.route('/').get((req, res) => {
         res.status(200).json({
           message: `Bem vindo à API da versão 1 da Rumi`
         });

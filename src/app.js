@@ -7,7 +7,6 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocks = require('./utils/swagger.json');
 
 const app = express();
-const apiVersion = '/api/v1';
 
 const db = knex({
   client: 'pg',
@@ -39,10 +38,7 @@ consign({ 'cwd': 'src' })
   .then('./config/router.js')
   .into(app);
 
-app.use(apiVersion, app._router);
-
-
-app.get(`${apiVersion}/`, (req, res) => {
+app.get('/', (req, res) => {
   res.status(200).json({
     message: `Bem vindo à API da versão 1 da Rumi`
   });

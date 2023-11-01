@@ -5,7 +5,7 @@ global.TextEncoder = TextEncoding.TextEncoder;
 global.TextDecoder = TextEncoding.TextDecoder;
 
 
-const request = supertest('http://localhost:3001/api/v1');
+const request = supertest('http://localhost:3001');
 
 test('Deve responder na porta 3001', () => {
     return request.get('/')

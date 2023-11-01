@@ -4,7 +4,7 @@ module.exports = (app) => {
     const router = express.Router();
 
     router.post('/', (req, res, next) => {
-        app.services.accounts.create({...req.body, user_id: req.user.id})
+        app.services.accounts.create({ ...req.body, user_id: req.user.id })
             .then((result) => {
                 if (result.error) return res.status(400).json(result);
                 return res.status(201).json(result[0]);
@@ -19,8 +19,9 @@ module.exports = (app) => {
 
     router.get('/:id', (req, res, next) => {
         app.services.accounts.find({ id: req.params.id })
-            .then(result => res.status(200).json(result))
-            .catch(err => next(err));
+            .then((result) => {
+                return res.status(200).json(result)
+            }).catch(err => next(err));
     });
 
     router.put('/:id', (req, res, next) => {

@@ -110,3 +110,15 @@ test('Não deve inserir uma conta sem nome', () => {
             expect(result.body.error).toBe('Nome é um atributo obrigatório');
         });
 })
+
+test('Nao deve inserir uma conta com nome duplicado para o mesmo usuario', () => {
+    return app.db('accounts').insert({ name: 'Acc duplicada', user_id: user.id})
+        .then(() => request(app).post(MAIN_ROUTE) // executa a insercao
+            .set('authorization', `bearer ${user.token}`)
+            .send({ name: 'Acc duplicada'}))
+        .then((res) => {
+            // eh esperado um erro ao inserir com nome duplicado
+            expect(res.status).toBe(400); 
+            expect(res.body.error).toBe('Já existe uma conta com esse nome');
+        });
+});
