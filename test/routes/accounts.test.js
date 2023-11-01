@@ -24,9 +24,9 @@ beforeAll(async () => {
     user2 = { ...res2[0] };
 });
 
-// beforeEach(async () => {
-//     await app.db('accounts').del();
-// });
+beforeEach(async () => {
+    await app.db('accounts').del();
+});
 
 test('Deve listar apenas as contas do usuário', () => {
     return app.db('accounts')
