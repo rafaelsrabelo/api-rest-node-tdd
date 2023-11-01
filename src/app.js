@@ -1,10 +1,13 @@
 require('dotenv').config();
-const swaggerUi = require('swagger-ui-express');
 const express = require('express');
-const app = express();
 const consign = require('consign');
 const knex = require('knex');
+const swaggerUi = require('swagger-ui-express');
+
 const swaggerDocks = require('./utils/swagger.json');
+
+const app = express();
+const apiVersion = '/api/v1';
 
 const db = knex({
   client: 'pg',
@@ -26,7 +29,6 @@ const db = knex({
 
 app.db = db;
 
-const apiVersion = '/api/v1';
 
 consign({ 'cwd': 'src' })
   .include('./config/passport.js')
