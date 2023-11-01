@@ -1,9 +1,11 @@
+const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const secret = 'Secret';
 
 module.exports = (app) => {
-    const signin = (req, res, next) => {
+    const router = express.Router();
+    router.post('/signin', (req, res, next) => {
         app.services.users.findOne({ email: req.body.email })
             .then((user) => {
                 if (!user) {
@@ -24,7 +26,13 @@ module.exports = (app) => {
                 }
             })
             .catch(err => next(err));
-    };
+    });
 
-    return { signin };
+    router.post('/signup', async (req, res) => {
+        const result = await app.services.users.create(req.body);
+        if (result.error) return res.status(400).json(result);
+        res.status(201).json(result[0]);
+    });
+
+    return router;
 }

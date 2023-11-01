@@ -58,25 +58,29 @@ test('Não deve criar usuário sem nome', () => {
     return request(app).post('/users')
         .send({ email: "email@email.com", password: "123456" })
         .set('authorization', `bearer ${user.token}`)
-    expect(res.status).toBe(400);
-    expect(res.body.error).toBe('O nome é obrigatório')
+        .then((res) => {
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('O nome é obrigatório')
+        });
 });
 
 test('Não deve criar usuário sem email', () => {
     return request(app).post('/users')
         .send({ name: "Aurileia Santana", password: "1234546" })
-        .set('authorization', `bearer ${user.token}`)
-    expect(res.status).toBe(400);
-    expect(res.body.error).toBe('O email é obrigatório')
-})
+        .set('authorization', `bearer ${user.token}`).then((res => {
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('O email é obrigatório')
+        }));
+});
 
 test('Não deve criar usuário sem senha', () => {
     return request(app).post('/users')
         .send({ name: "Aurileia Santana", email: "contato@email.com" })
-        .set('authorization', `bearer ${user.token}`)
-    expect(res.status).toBe(400);
-    expect(res.body.error).toBe('A senha é obrigatória')
-})
+        .set('authorization', `bearer ${user.token}`).then((res) => {
+            expect(res.status).toBe(400);
+            expect(res.body.error).toBe('A senha é obrigatória')
+        });
+});
 
 test('Não deve criar usuário com email existente', () => {
     return request(app).post('/users')

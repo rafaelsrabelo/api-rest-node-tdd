@@ -1,5 +1,4 @@
 module.exports = (app) => {
-    app.route('/');
     app.route('/auth/signin').post(app.routes.auth.signin);
     app.route('/auth/signup').post(app.routes.users.create);
 
@@ -17,6 +16,6 @@ module.exports = (app) => {
         .all(app.config.passport.authenticate())
         .get(app.routes.accounts.get)
         .put(app.routes.accounts.update)
-        .delete(app.routes.accounts.remove);
+        // .delete(app.routes.accounts.remove);
 
 };

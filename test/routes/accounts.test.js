@@ -21,7 +21,7 @@ beforeAll(async () => {
 });
 
 test('Deve inserir uma conta com sucesso', () => {
-    return request(app).post('/accounts')
+    return request(app).post(MAIN_ROUTE)
         .send({user_id: user.id, name: 'Acc #1',})
         .set('authorization', `bearer ${user.token}`)
         .then((result) => {
@@ -54,7 +54,7 @@ test('Deve retornar uma conta por id', () => {
 test('Deve alterar uma conta', () => {
     return app.db('accounts')
         .insert({ name: 'Acc To Update', user_id: user.id }, ['id'])
-        .then(acc => request(app).put(`${'/accounts'}/${acc[0].id}`)
+        .then(acc => request(app).put(`${MAIN_ROUTE}/${acc[0].id}`)
             .send({ name: 'Acc Updated' })
             .set('authorization', `bearer ${user.token}`))
         .then((res) => {
@@ -66,7 +66,7 @@ test('Deve alterar uma conta', () => {
 test('Deve remover uma conta', () => {
     return app.db('accounts')
         .insert({ name: 'Acc To Update', user_id: user.id }, ['id'])
-        .then(acc => request(app).delete(`${'/accounts'}/${acc[0].id}`)
+        .then(acc => request(app).delete(`${MAIN_ROUTE}/${acc[0].id}`)
         .set('authorization', `bearer ${user.token} `))
         .then((res) => {
             expect(res.status).toBe(204);
@@ -74,7 +74,7 @@ test('Deve remover uma conta', () => {
 });
 
 test('Não deve inserir uma conta sem nome', () => {
-    return request(app).post('/accounts')
+    return request(app).post(MAIN_ROUTE)
     .send({user_id: user.id,})
     .set('authorization', `bearer ${user.token} `)
     .then((result) => {

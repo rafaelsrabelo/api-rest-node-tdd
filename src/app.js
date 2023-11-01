@@ -29,13 +29,12 @@ const db = knex({
 
 app.db = db;
 
-
 consign({ 'cwd': 'src' })
   .include('./config/passport.js')
   .then('./config/middlewares.js')
   .then('./services')
   .then('./routes')
-  .then('./config/routes.js')
+  .then('./config/router.js')
   .into(app);
 
 app.use(apiVersion, app._router);
