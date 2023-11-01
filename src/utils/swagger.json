@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API para gestão de fazendas",
-    "description": "Essa API tem como objetivo a gestão de fazendas",
+    "title": "API RESTful para Gestão de Usuários e Autenticação",
+    "description": "Esta API é destinada a estudos em Node.js e inclui funcionalidades para criação de usuários, gestão de contas, autenticação e autorização através de tokens. Os usuários podem gerar tokens e acessar partes restritas da aplicação mediante a validação desses tokens.",
     "termsOfService": "http://localhost:3001/terms",
     "contact": {
       "email": "rafaelrabelodev@gmail.com"
