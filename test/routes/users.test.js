@@ -19,10 +19,6 @@ beforeAll(async () => {
     user.token = jwt.sign(user, 'Secret');
 });
 
-beforeEach(async () => {
-    await app.db('accounts').del();
-});
-
 test('Deve retornar todos usuarios', () => {
     return request(app).get('/users')
         .set('authorization', `bearer ${user.token}`)
