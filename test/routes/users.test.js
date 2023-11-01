@@ -17,9 +17,11 @@ beforeAll(async () => {
 
     user = { ...res[0] };
     user.token = jwt.sign(user, 'Secret');
-    console.log(user.token);
 });
 
+beforeEach(async () => {
+    await app.db('accounts').del();
+});
 
 test('Deve retornar todos usuarios', () => {
     return request(app).get('/users')

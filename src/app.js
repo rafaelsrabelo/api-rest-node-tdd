@@ -29,6 +29,8 @@ const db = knex({
 
 app.db = db;
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocks));
+
 consign({ 'cwd': 'src' })
   .include('./config/passport.js')
   .then('./config/middlewares.js')
@@ -39,7 +41,6 @@ consign({ 'cwd': 'src' })
 
 app.use(apiVersion, app._router);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocks));
 
 app.get(`${apiVersion}/`, (req, res) => {
   res.status(200).json({

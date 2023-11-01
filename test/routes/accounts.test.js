@@ -9,20 +9,46 @@ const app = require('../../src/app');
 
 const MAIN_ROUTE = '/accounts';
 let user;
+let user2;
 
 beforeAll(async () => {
-    const res = await app.services.users.create({
+    const res1 = await app.services.users.create({
         name: 'User account', email: `${Date.now()}@email.com`, password: "123456"
     });
-
-    user = { ...res[0] };
+    user = { ...res1[0] };
     user.token = jwt.sign(user, 'Secret');
-    console.log(user.token);
+
+    const res2 = await app.services.users.create({
+        name: 'User account 2', email: `${Date.now()}@gmail.com`, password: "123456"
+    });
+    user2 = { ...res2[0] };
+});
+
+beforeEach(async () => {
+    await app.db('accounts').del();
+});
+
+test('Deve listar apenas as contas do usuário', () => {
+    return app.db('accounts')
+        .insert([
+            { name: 'Acc User #1', user_id: user.id },
+            { name: 'Acc User #2', user_id: user2.id }
+        ])
+        .then(() => request(app).get(MAIN_ROUTE)
+            .set('authorization', `bearer ${user.token}`)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.error('Test failed: ', res.body);
+                }
+                expect(res.status).toBe(200);
+                expect(res.body.length).toBe(1);
+                expect(res.body[0].name).toBe('Acc User #1');
+            }))
 });
 
 test('Deve inserir uma conta com sucesso', () => {
     return request(app).post(MAIN_ROUTE)
-        .send({user_id: user.id, name: 'Acc #1',})
+        .send({ name: 'Acc #1' })
         .set('authorization', `bearer ${user.token}`)
         .then((result) => {
             expect(result.status).toBe(201);
@@ -30,14 +56,20 @@ test('Deve inserir uma conta com sucesso', () => {
         });
 });
 
-test('Deve listar todas as contas', () => {
+test('Deve listar apenas as contas do usuário', () => {
     return app.db('accounts')
-        .insert({ name: 'Acc list', user_id: user.id })
-        .then(() => request(app).get(MAIN_ROUTE).set('authorization', `bearer ${user.token}`))
-        .then((res) => {
-            expect(res.status).toBe(200);
-            expect(res.body.length).toBeGreaterThan(0);
-        });
+        .insert([
+            { name: 'Acc User #1', user_id: user.id },
+            { name: 'Acc User #2', user_id: user2.id }
+        ])
+        .then(() => request(app).get(MAIN_ROUTE)
+            .set('authorization', `bearer ${user.token}`)
+            .then((res) => {
+                expect(res.status).toBe(200);
+                expect(res.body.length).toBe(1);
+                expect(res.body[0].name).toBe('Acc User #1');
+            }))
+
 });
 
 test('Deve retornar uma conta por id', () => {
@@ -67,7 +99,7 @@ test('Deve remover uma conta', () => {
     return app.db('accounts')
         .insert({ name: 'Acc To Update', user_id: user.id }, ['id'])
         .then(acc => request(app).delete(`${MAIN_ROUTE}/${acc[0].id}`)
-        .set('authorization', `bearer ${user.token} `))
+            .set('authorization', `bearer ${user.token} `))
         .then((res) => {
             expect(res.status).toBe(204);
         });
@@ -75,10 +107,10 @@ test('Deve remover uma conta', () => {
 
 test('Não deve inserir uma conta sem nome', () => {
     return request(app).post(MAIN_ROUTE)
-    .send({user_id: user.id,})
-    .set('authorization', `bearer ${user.token} `)
-    .then((result) => {
-        expect(result.status).toBe(400);
-        expect(result.body.error).toBe('Nome é um atributo obrigatório');
-    });
+        .send()
+        .set('authorization', `bearer ${user.token} `)
+        .then((result) => {
+            expect(result.status).toBe(400);
+            expect(result.body.error).toBe('Nome é um atributo obrigatório');
+        });
 })
