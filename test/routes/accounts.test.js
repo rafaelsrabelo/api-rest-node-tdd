@@ -11,7 +11,7 @@ const MAIN_ROUTE = '/accounts';
 let user;
 let user2;
 
-beforeAll(async () => {
+beforeEach(async () => {
     const res1 = await app.services.users.create({
         name: 'User account', email: `${Date.now()}@email.com`, password: "123456"
     });
@@ -22,10 +22,6 @@ beforeAll(async () => {
         name: 'User account 2', email: `${Date.now()}@gmail.com`, password: "123456"
     });
     user2 = { ...res2[0] };
-});
-
-beforeEach(async () => {
-    await app.db('accounts').del();
 });
 
 test('Deve listar apenas as contas do usuário', () => {
