@@ -1,16 +1,18 @@
+require('dotenv').config();
 const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const app = express();
 const consign = require('consign');
 const knex = require('knex');
 const swaggerDocks = require('./utils/swagger.json');
+
 const db = knex({
   client: 'pg',
   connection: {
-    host: 'localhost',
-    database: 'rumi',
-    user: 'postgres',
-    password: 'example'
+    host: process.env.DATABASE_HOST,
+    database: process.env.DATABASE_NAME,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD
   },
   pool: {
     min: 2,
