@@ -3,10 +3,13 @@ const express = require('express');
 const consign = require('consign');
 const knex = require('knex');
 const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 const swaggerDocks = require('./utils/swagger.json');
 
 const app = express();
+
+app.use(cors()); 
 
 const db = knex({
   client: 'pg',
